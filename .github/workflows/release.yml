@@ -1,0 +1,42 @@
+# Copyright (c) Jiaqi Liu.
+#
+# This source code is licensed under the MIT license found in the
+# LICENSE file in the root directory of this source tree.
+---
+name: Documentation Release
+
+'on':
+  push:
+    branches:
+      - master
+
+jobs:
+  test:
+    uses: ./.github/workflows/ci.yml
+    secrets: inherit
+
+  deploy-documentation:
+    name: Deploy Documentation to GitHub Pages
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js 10 to build (higher version not working)
+        uses: actions/setup-node@v1
+        with:
+          node-version: 10
+      - run: npm ci
+      - name: Increase watchers to avoid System limit for number of file watchers reached
+        run: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
+      - run: |
+          npm run docs:clean
+          npm run docs:build
+          cd _book
+          touch .nojekyll
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: _book
+          user_name: QubitPi
+          user_email: jack20191124@proton.me

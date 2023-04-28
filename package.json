@@ -22,9 +22,9 @@
     "shipit": "npm run clean && npm run build && npm run lint && npm test && scripts/publish.sh",
     "docs:clean": "rimraf _book",
     "docs:prepare": "gitbook install",
-    "docs:build": "npm run docs:prepare && gitbook build -g redux-observable/redux-observable && cp logo/favicon.ico _book/gitbook/images",
+    "docs:build": "npm run docs:prepare && gitbook build -g QubitPi/redux-observable && cp logo/favicon.ico _book/gitbook/images",
     "docs:watch": "gitbook serve",
-    "docs:publish": "npm run docs:clean && npm run docs:build && cp CNAME _book && cd _book && git init && git commit --allow-empty -m 'update book' && git checkout -b gh-pages && touch .nojekyll && git add . && git commit -am 'update book' && git push git@github.com:redux-observable/redux-observable gh-pages --force"
+    "docs:publish": "npm run docs:clean && npm run docs:build && cd _book && git init && git commit --allow-empty -m 'update book' && git checkout -b gh-pages && touch .nojekyll && git add . && git commit -am 'update book' && git push git@github.com:QubitPi/redux-observable gh-pages --force"
   },
   "typings": "./dist/types/index.d.ts",
   "files": [
@@ -35,7 +35,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/redux-observable/redux-observable.git"
+    "url": "git+https://github.com/QubitPi/redux-observable.git"
   },
   "keywords": [
     "Rx",
